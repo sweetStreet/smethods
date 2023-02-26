@@ -1,7 +1,6 @@
 package org.smethods;
 
 import org.ekstazi.asm.ClassReader;
-import org.ekstazi.util.FileUtil;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
