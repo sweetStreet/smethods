@@ -64,8 +64,7 @@ public class MethodLevelStaticDepsBuilder {
         FileUtil.saveMap(hierarchy_parents, Macros.SMETHODS_ROOT_DIR_NAME, "hierarchy_parents.txt");
         FileUtil.saveMap(hierarchy_children, Macros.SMETHODS_ROOT_DIR_NAME, "hierarchy_children.txt");
         FileUtil.saveMap(class2ContainedMethodNames, Macros.SMETHODS_ROOT_DIR_NAME, "class2methods.txt");
-        // save into a txt file ".ekstazi/methods.txt"
-        FileUtil.saveMap(test2methods, Macros.SMETHODS_ROOT_DIR_NAME, "methods.txt");
+        FileUtil.saveMap(test2methods, Macros.SMETHODS_ROOT_DIR_NAME, "test2methods.txt");
     }
 
     public static void findMethodsinvoked(Set<String> classPaths) {
