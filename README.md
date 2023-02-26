@@ -13,7 +13,7 @@ mvn exec:java -Dexec.mainClass=org.smethods.MethodLevelStaticDepsBuilder -Dexec.
 
 ## Background
 1. [ASM](http://asm.ow2.org/)
-2. [Method level dependency graph](http://www.cs.umd.edu/~pugh/java/methods.html)
+2. [Visitor pattern](https://en.wikipedia.org/wiki/Visitor_pattern)
 
 ## Example
 ```
