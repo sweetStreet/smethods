@@ -65,7 +65,8 @@ public class MethodCallCollectorCV extends ClassVisitor {
         return new MethodVisitor(Opcodes.ASM5) {
             @Override
             public void visitMethodInsn(int opcode, String owner, String name, String desc, boolean itf) {
-                if (!owner.startsWith("java/") && !owner.startsWith("org/junit/") && !owner.startsWith("org/smethods") && !owner.startsWith("org/ekstazi")) {
+                if (!owner.startsWith("java/") && !owner.startsWith("org/junit/") && !owner.startsWith("org/smethods")
+                        && !owner.startsWith("org/ekstazi")) {
                     String methodSig = name + desc.substring(0, desc.indexOf(")") + 1);
                     if (class2ContainedMethodNames.getOrDefault(owner, new HashSet<>()).contains(methodSig)) {
                         String invokedKey = owner + "#" + methodSig;
@@ -93,7 +94,8 @@ public class MethodCallCollectorCV extends ClassVisitor {
 
             @Override
             public void visitFieldInsn(int opcode, String owner, String name, String desc) {
-                if (!owner.startsWith("java/") && !owner.startsWith("org/junit/") && !owner.startsWith("org/smethods/") && !owner.startsWith("org/ekstazi/")) {
+                if (!owner.startsWith("java/") && !owner.startsWith("org/junit/") && !owner.startsWith("org/smethods/")
+                        && !owner.startsWith("org/ekstazi/")) {
                     String field = owner + "#" + name;
                     // outerDesc.equals("<init>")
                     // non static field would be invoked through constructor
