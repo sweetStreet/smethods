@@ -93,7 +93,7 @@ public class MethodCallCollectorCV extends ClassVisitor {
 
             @Override
             public void visitFieldInsn(int opcode, String owner, String name, String desc) {
-                if (!owner.startsWith("java/") && !owner.startsWith("org/junit/")) {
+                if (!owner.startsWith("java/") && !owner.startsWith("org/junit/") && !owner.startsWith("org/smethods/") && !owner.startsWith("org/ekstazi/")) {
                     String field = owner + "#" + name;
                     // outerDesc.equals("<init>")
                     // non static field would be invoked through constructor

@@ -37,7 +37,7 @@ public class MethodLevelStaticDepsBuilder {
 
         HashSet classPaths = new HashSet<>(Files.walk(Paths.get(pathToStartDir))
                 .filter(Files::isRegularFile)
-                .filter(f -> (f.toString().endsWith(".class") && f.toString().contains("target")))
+                .filter(f -> (f.toString().endsWith(".class"))) // && f.toString().contains("target")
                 .map(f -> f.normalize().toAbsolutePath().toString())
                 .collect(Collectors.toList()));
 
