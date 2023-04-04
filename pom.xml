@@ -49,10 +49,11 @@
     	<artifactId>commons-httpclient</artifactId>
     	<version>20020423</version>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/org.ow2.asm/asm -->
     <dependency>
-      <groupId>org.ekstazi</groupId>
-      <artifactId>org.ekstazi.core</artifactId>
-      <version>5.3.0</version>
+        <groupId>org.ow2.asm</groupId>
+        <artifactId>asm</artifactId>
+        <version>9.5</version>
     </dependency>
   </dependencies>
 
@@ -148,6 +149,34 @@
               <goal>report</goal>
             </goals>
           </execution>
+        </executions>
+      </plugin>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-shade-plugin</artifactId>
+            <version>3.2.4</version>
+            <configuration>
+                <transformers>
+                    <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                        <manifestEntries>
+                            <Main-Class>org.smethods.MethodLevelStaticDepsBuilder</Main-Class>
+                        </manifestEntries>
+                    </transformer>
+                </transformers>
+            <relocations>
+                <relocation>
+                    <pattern>org.objectweb.asm</pattern>
+                    <shadedPattern>agents.org.objectweb.asm</shadedPattern>
+                </relocation>
+            </relocations>
+        </configuration>
+        <executions>
+            <execution>
+                <phase>package</phase>
+                <goals>
+                    <goal>shade</goal>
+                </goals>
+            </execution>
         </executions>
       </plugin>
     </plugins>

@@ -1,13 +1,13 @@
 package org.smethods;
 
-import org.ekstazi.asm.ClassVisitor;
-import org.ekstazi.asm.MethodVisitor;
-import org.ekstazi.asm.Opcodes;
-
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
+
+import org.objectweb.asm.ClassVisitor;
+import org.objectweb.asm.MethodVisitor;
+import org.objectweb.asm.Opcodes;
 
 import static org.smethods.Macros.PROJECT_PACKAGE;
 
@@ -23,7 +23,7 @@ public class ClassToMethodsCollectorCV extends ClassVisitor {
     public ClassToMethodsCollectorCV(Map<String, Set<String>> class2ContainedMethodNames,
             Map<String, Set<String>> hierarchy_parents,
             Map<String, Set<String>> hierarchy_children) {
-        super(Opcodes.ASM5);
+        super(Opcodes.ASM9);
         this.class2ContainedMethodNames = class2ContainedMethodNames;
         this.hierarchy_parents = hierarchy_parents;
         this.hierarchy_children = hierarchy_children;
