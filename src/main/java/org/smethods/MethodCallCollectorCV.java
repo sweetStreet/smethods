@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
-import static org.smethods.Macros.PROJECT_PACKAGE;
+import static org.smethods.Macros.*;
 
 public class MethodCallCollectorCV extends ClassVisitor {
 
@@ -27,7 +27,7 @@ public class MethodCallCollectorCV extends ClassVisitor {
             Map<String, Set<String>> hierarchy_children,
             Map<String, Set<String>> class2ContainedMethodNames,
             Set<String> classesInConstantPool) {
-        super(Opcodes.ASM9);
+        super(ASM_VERSION);
         this.methodName2InvokedMethodNames = methodName2MethodNames;
         this.hierarchy_parents = hierarchy_parents;
         this.hierarchy_children = hierarchy_children;
@@ -39,7 +39,7 @@ public class MethodCallCollectorCV extends ClassVisitor {
             Map<String, Set<String>> hierarchy_parents,
             Map<String, Set<String>> hierarchy_children,
             Map<String, Set<String>> class2ContainedMethodNames) {
-        super(Opcodes.ASM9);
+        super(ASM_VERSION);
         this.methodName2InvokedMethodNames = methodName2MethodNames;
         this.hierarchy_parents = hierarchy_parents;
         this.hierarchy_children = hierarchy_children;
@@ -62,11 +62,11 @@ public class MethodCallCollectorCV extends ClassVisitor {
         String outerMethodSig = outerName + outerDesc.substring(0, outerDesc.indexOf(")") + 1);
         String key = mClassName + "#" + outerMethodSig;
         Set<String> mInvokedMethods = methodName2InvokedMethodNames.computeIfAbsent(key, k -> new TreeSet<>());
-        return new MethodVisitor(Opcodes.ASM9) {
+        return new MethodVisitor(ASM_VERSION) {
             @Override
             public void visitMethodInsn(int opcode, String owner, String name, String desc, boolean itf) {
-                if (!owner.startsWith("java/") && !owner.startsWith("org/junit/") && !owner.startsWith("org/smethods")
-                        && !owner.startsWith("org/ekstazi")) {
+                if (!owner.startsWith("java/") && !owner.startsWith("org/junit/")
+                        && !owner.startsWith(PROJECT_PACKAGE)) {
                     String methodSig = name + desc.substring(0, desc.indexOf(")") + 1);
                     if (class2ContainedMethodNames.getOrDefault(owner, new HashSet<>()).contains(methodSig)) {
                         String invokedKey = owner + "#" + methodSig;
@@ -94,8 +94,8 @@ public class MethodCallCollectorCV extends ClassVisitor {
 
             @Override
             public void visitFieldInsn(int opcode, String owner, String name, String desc) {
-                if (!owner.startsWith("java/") && !owner.startsWith("org/junit/") && !owner.startsWith("org/smethods/")
-                        && !owner.startsWith("org/ekstazi/")) {
+                if (!owner.startsWith("java/") && !owner.startsWith("org/junit/")
+                        && !owner.startsWith(PROJECT_PACKAGE)) {
                     String field = owner + "#" + name;
                     // outerDesc.equals("<init>")
                     // non static field would be invoked through constructor

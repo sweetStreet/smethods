@@ -7,9 +7,8 @@ import java.util.TreeSet;
 
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.MethodVisitor;
-import org.objectweb.asm.Opcodes;
 
-import static org.smethods.Macros.PROJECT_PACKAGE;
+import static org.smethods.Macros.*;
 
 public class ClassToMethodsCollectorCV extends ClassVisitor {
 
@@ -23,7 +22,7 @@ public class ClassToMethodsCollectorCV extends ClassVisitor {
     public ClassToMethodsCollectorCV(Map<String, Set<String>> class2ContainedMethodNames,
             Map<String, Set<String>> hierarchy_parents,
             Map<String, Set<String>> hierarchy_children) {
-        super(Opcodes.ASM9);
+        super(ASM_VERSION);
         this.class2ContainedMethodNames = class2ContainedMethodNames;
         this.hierarchy_parents = hierarchy_parents;
         this.hierarchy_children = hierarchy_children;
@@ -35,7 +34,7 @@ public class ClassToMethodsCollectorCV extends ClassVisitor {
         mClassName = name;
         Set<String> parents = hierarchy_parents.getOrDefault(name, new HashSet<>());
         if (superName != null && !superName.startsWith("java/") && !superName.startsWith("org/junit/")
-                && !superName.startsWith("org/smethods/") && !superName.startsWith("org/ekstazi/")) {
+                && !superName.startsWith(Macros.PROJECT_PACKAGE)) {
             parents.add(superName);
             Set<String> subClasses = hierarchy_children.getOrDefault(superName, new HashSet<>());
             subClasses.add(name);
